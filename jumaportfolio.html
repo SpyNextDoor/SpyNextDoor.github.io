@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Juma — Data Analyst & Web Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0b0d11;
+    --bg-card: #111419;
+    --bg-raised: #181c24;
+    --border: rgba(255,255,255,0.07);
+    --border-accent: rgba(255,255,255,0.14);
+    --text-primary: #e8eaf0;
+    --text-secondary: #7c8290;
+    --text-muted: #454a55;
+    --accent: #4f9cf9;
+    --accent-dim: rgba(79,156,249,0.12);
+    --accent-green: #3ecf8e;
+    --accent-green-dim: rgba(62,207,142,0.10);
+    --accent-purple: #a78bfa;
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'Inter', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2.5rem;
+    height: 60px;
+    background: rgba(11,13,17,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: 13px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text-primary); }
+
+  /* SECTIONS */
+  section { padding: 7rem 0 5rem; max-width: 860px; margin: 0 auto; padding-left: 2rem; padding-right: 2rem; }
+
+  /* HERO */
+  #hero {
+    padding-top: 130px;
+    padding-bottom: 5rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .hero-eyebrow {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+  }
+  .hero-name {
+    font-size: clamp(2.8rem, 7vw, 4.5rem);
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+  }
+  .hero-name strong { font-weight: 600; }
+  .hero-roles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 1.5rem 0 2rem;
+  }
+  .tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 4px;
+    border: 1px solid var(--border-accent);
+    color: var(--text-secondary);
+    letter-spacing: 0.04em;
+  }
+  .tag.blue { border-color: rgba(79,156,249,0.35); color: var(--accent); background: var(--accent-dim); }
+  .tag.green { border-color: rgba(62,207,142,0.35); color: var(--accent-green); background: var(--accent-green-dim); }
+  .tag.purple { border-color: rgba(167,139,250,0.35); color: var(--accent-purple); background: rgba(167,139,250,0.10); }
+  .hero-desc {
+    max-width: 540px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+  }
+  .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn {
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 10px 22px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+    display: inline-flex; align-items: center; gap: 7px;
+    letter-spacing: 0.01em;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #05101f;
+    border: 1px solid transparent;
+  }
+  .btn-primary:hover { background: #6aaeff; }
+  .btn-outline {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-accent);
+  }
+  .btn-outline:hover { color: var(--text-primary); border-color: rgba(255,255,255,0.25); }
+
+  /* DIVIDER */
+  .section-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 2.5rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ABOUT */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+  .about-text { color: var(--text-secondary); line-height: 1.85; }
+  .about-text p + p { margin-top: 1rem; }
+  .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .stat-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.1rem 1.25rem;
+  }
+  .stat-num {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.1;
+  }
+  .stat-desc { font-size: 12px; color: var(--text-secondary); margin-top: 4px; }
+
+  /* SKILLS */
+  .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .skill-group {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.25rem;
+  }
+  .skill-group-title {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .skill-group.green .skill-group-title { color: var(--accent-green); }
+  .skill-group.purple .skill-group-title { color: var(--accent-purple); }
+  .skill-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .skill-item {
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+  .skill-bar { height: 3px; background: var(--border); border-radius: 99px; width: 80px; overflow: hidden; }
+  .skill-fill { height: 100%; border-radius: 99px; background: var(--accent); }
+  .skill-group.green .skill-fill { background: var(--accent-green); }
+  .skill-group.purple .skill-fill { background: var(--accent-purple); }
+
+  /* PROJECTS */
+  .projects-grid { display: grid; gap: 16px; }
+  .project-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem 1.75rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+    align-items: start;
+    transition: border-color 0.2s, background 0.2s;
+    text-decoration: none;
+  }
+  .project-card:hover { border-color: var(--border-accent); background: var(--bg-raised); }
+  .project-title { font-size: 15px; font-weight: 500; color: var(--text-primary); margin-bottom: 6px; }
+  .project-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.65; }
+  .project-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+  .project-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 3px;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+  }
+  .project-arrow { color: var(--text-muted); font-size: 20px; margin-top: 2px; }
+
+  /* COURSES */
+  .courses-list { display: flex; flex-direction: column; gap: 12px; }
+  .course-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.1rem 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .course-badge {
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 3px 9px;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+  .badge-active { background: var(--accent-green-dim); color: var(--accent-green); border: 1px solid rgba(62,207,142,0.3); }
+  .badge-done { background: var(--accent-dim); color: var(--accent); border: 1px solid rgba(79,156,249,0.3); }
+  .course-name { font-size: 13px; font-weight: 500; color: var(--text-primary); }
+  .course-platform { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+
+  /* CONTACT */
+  .contact-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 3rem;
+    text-align: center;
+  }
+  .contact-headline { font-size: 1.6rem; font-weight: 500; margin-bottom: 0.75rem; }
+  .contact-sub { color: var(--text-secondary); max-width: 420px; margin: 0 auto 2rem; font-size: 14px; }
+  .contact-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+  .contact-link {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 10px 18px;
+    border-radius: 7px;
+    border: 1px solid var(--border-accent);
+    transition: all 0.2s;
+    letter-spacing: 0.03em;
+  }
+  .contact-link:hover { color: var(--text-primary); border-color: rgba(255,255,255,0.25); background: var(--bg-raised); }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem;
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+  }
+
+  /* MOBILE */
+  @media (max-width: 640px) {
+    nav { padding: 0 1.25rem; }
+    .nav-links { gap: 1.25rem; }
+    section { padding-left: 1.25rem; padding-right: 1.25rem; }
+    .about-grid { grid-template-columns: 1fr; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .project-card { grid-template-columns: 1fr; }
+    .project-arrow { display: none; }
+    .contact-card { padding: 2rem 1.5rem; }
+    .stat-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#hero">JM.dev</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#courses">Courses</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <p class="hero-eyebrow">// available for work</p>
+  <h1 class="hero-name">Jean Marie<br><strong>Ngabonziza</strong></h1>
+  <div class="hero-roles">
+    <span class="tag blue">Data Analyst</span>
+    <span class="tag green">Web Developer</span>
+    <span class="tag purple">SQL · Tableau</span>
+    <span class="tag">Open to opportunities</span>
+  </div>
+  <p class="hero-desc">
+    CS graduate turning raw data into clear decisions — and building the web backends that serve them.
+    Focused on analytical work and functional web development, with a sharp eye for data integrity.
+  </p>
+  <div class="hero-cta">
+    <a class="btn btn-primary" href="#projects">View my work</a>
+    <a class="btn btn-outline" href="resume.pdf" download>↓ Download résumé</a>
+    <a class="btn btn-outline" href="#contact">Get in touch</a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <p class="section-label">01 — About</p>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>
+        I'm a recent graduate from Bucknell University with a B.S in Computer Science & Engineering. During my time at Bucknell, I have explored various fields
+        and ended up enjoying data and web development. I have taken courses in data visualization and web development. I was part of a Forestry Summer Research
+        where my team and I were working primarily with R to clean three datasets with 1000+ rows. This was to make sure that our data was a close estimate to the
+        forest population in the US. Moreover, I taught myself SQL to be more proficient with data wrangling. On top of Shiny Dashboard, I am currently learning Tableau
+        to make sure I stay relevant with the market's demands.
+      </p>
+      <p>
+        On the web side, I've worked with Elixir and its functional paradigm, which has given me a
+        strong foundation in building reliable, concurrent systems. I learned to use LiveViews, HTML, and CSS as the frontend
+        and Phoenix framework as the backend.
+      </p>
+      <p>
+        Right now I'm actively seeking roles where I can apply data analytics skills, build dashboards,
+        and work inside a team that cares about data quality.
+      </p>
+    </div>
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-num" style="color: var(--accent);">SQL</div>
+        <div class="stat-desc">Primary analytical tool</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" style="color: var(--accent-green);">Elixir</div>
+        <div class="stat-desc">Backend web dev</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">CS</div>
+        <div class="stat-desc">Bachelor's degree</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" style="color: var(--accent-purple);">Open</div>
+        <div class="stat-desc">to new roles now</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <p class="section-label">02 — Skills</p>
+  <div class="skills-grid">
+    <div class="skill-group">
+      <div class="skill-group-title">Data & Analytics</div>
+      <ul class="skill-list">
+        <li class="skill-item">SQL (MySQL / PostgreSQL) <div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div></li>
+        <li class="skill-item">Window Functions <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div></li>
+        <li class="skill-item">CTEs <div class="skill-bar"><div class="skill-fill" style="width:82%"></div></div></li>
+        <li class="skill-item">Tableau <div class="skill-bar"><div class="skill-fill" style="width:60%"></div></div></li>
+        <li class="skill-item">Data Cleaning <div class="skill-bar"><div class="skill-fill" style="width:78%"></div></div></li>
+      </ul>
+    </div>
+    <div class="skill-group green">
+      <div class="skill-group-title">Web Development</div>
+      <ul class="skill-list">
+        <li class="skill-item">Elixir <div class="skill-bar"><div class="skill-fill" style="width:65%"></div></div></li>
+        <li class="skill-item">Phoenix Framework <div class="skill-bar"><div class="skill-fill" style="width:65%"></div></div></li>
+        <li class="skill-item">HTML / CSS <div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div></li>
+        <li class="skill-item">REST APIs <div class="skill-bar"><div class="skill-fill" style="width:68%"></div></div></li>
+        <li class="skill-item">Git & Version Control <div class="skill-bar"><div class="skill-fill" style="width:74%"></div></div></li>
+      </ul>
+    </div>
+    <div class="skill-group purple">
+      <div class="skill-group-title">Tools & Workflow</div>
+      <ul class="skill-list">
+        <li class="skill-item">DBgate <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div></li>
+        <li class="skill-item">macOS / Terminal <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div></li>
+        <li class="skill-item">Excel / Sheets <div class="skill-bar"><div class="skill-fill" style="width:72%"></div></div></li>
+        <li class="skill-item">Python <div class="skill-bar"><div class="skill-fill" style="width:68%"></div></div></li>
+        <li class="skill-item">Figma (basic) <div class="skill-bar"><div class="skill-fill" style="width:30%"></div></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <p class="section-label">03 — Projects</p>
+  <div class="projects-grid">
+
+    <a class="project-card" href="#" onclick="return false;">
+      <div>
+        <div class="project-title">Data Visualization Final Project</div>
+        <div class="project-desc">
+          Identified and resolved multiple schema errors in a MySQL bakery database: fixed foreign key constraints,
+          corrected AUTO_INCREMENT mismatches, resolved table dependency ordering, and cleaned invalid data entries.
+        </div>
+        <div class="project-tags">
+          <span class="project-tag">R</span>
+          <span class="project-tag">Statistics</span>
+          <span class="project-tag">Shiny Dashboard</span>
+          <span class="project-tag">RStudio</span>
+        </div>
+      </div>
+      <div class="project-arrow">→</div>
+    </a>
+
+    <a class="project-card" href="#" onclick="return false;">
+      <div>
+        <div class="project-title">SQL Analytics Portfolio — Interview Practice</div>
+        <div class="project-desc">
+          Collection of SQL challenges solved across StrataScratch, LeetCode SQL, and Mode Analytics.
+          Covers JOINs, GROUP BY, window functions, and CTEs — written to interview standard.
+        </div>
+        <div class="project-tags">
+          <span class="project-tag">PostgreSQL</span>
+          <span class="project-tag">Window Functions</span>
+          <span class="project-tag">CTEs</span>
+          <span class="project-tag">Analytics</span>
+        </div>
+      </div>
+      <div class="project-arrow">→</div>
+    </a>
+
+    <a class="project-card" href="#" onclick="return false;">
+      <div>
+        <div class="project-title">Habit Flow (Web Development Final Project)</div>
+        <div class="project-desc">
+          Fullstack web app used to track different habits you want to build in your life. It has two features that I want to highlight.
+          One is that on top of tracking the habits, you can journal how you felt during or after completing the habit. This is connected to
+          an integrated AI connected to Grok LLM to give a weekly summary.
+        </div>
+        <div class="project-tags">
+          <span class="project-tag">Elixir</span>
+          <span class="project-tag">Phoenix MVC</span>
+          <span class="project-tag">Websockets</span>
+          <span class="project-tag">Functional Programming</span>
+        </div>
+      </div>
+      <div class="project-arrow">→</div>
+    </a>
+
+  </div>
+</section>
+
+<!-- COURSES -->
+<section id="courses">
+  <p class="section-label">04 — Courses & Learning</p>
+  <div class="courses-list">
+
+    <div class="course-item">
+      <span class="course-badge badge-active">In progress</span>
+      <div>
+        <div class="course-name">SQL for Data Analytics — Analyst Builder</div>
+        <div class="course-platform">Analyst Builder · MySQL</div>
+      </div>
+    </div>
+
+    <div class="course-item">
+      <span class="course-badge badge-active">In progress</span>
+      <div>
+        <div class="course-name">Tableau for Data Analytics — Analyst Builder</div>
+        <div class="course-platform">Analyst Builder · Tableau</div>
+      </div>
+    </div>
+
+    <div class="course-item">
+      <span class="course-badge badge-done">Completed</span>
+      <div>
+        <div class="course-name">Introduction to Elixir & </div>
+        <div class="course-platform">Self-directed · Functional Programming</div>
+      </div>
+    </div>
+    
+    <div class="course-item">
+      <span class="course-badge badge-done">Completed</span>
+      <div>
+        <div class="course-name">Web Development</div>
+        <div class="course-platform">University coursework · Phoenix Framework</div>
+      </div>
+    </div>
+
+    <div class="course-item">
+      <span class="course-badge badge-done">Completed</span>
+      <div>
+        <div class="course-name">Data Visualization</div>
+        <div class="course-platform">University coursework · R Pogramming · Statistics</div>
+      </div>
+    </div>
+
+    <div class="course-item">
+      <span class="course-badge badge-done">Completed</span>
+      <div>
+        <div class="course-name">Data Structures & Algorithms</div>
+        <div class="course-platform">University coursework · CS core</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="section-label">05 — Contact</p>
+  <div class="contact-card">
+    <h2 class="contact-headline">Let's work together.</h2>
+    <p class="contact-sub">
+      Open to data analyst roles, junior developer positions, and freelance projects.
+      If you're building something with data at its core — reach out.
+    </p>
+    <div class="contact-links">
+      <a class="contact-link" href="mailto:nisingizwe.jeanmarie@email.com">✉ email</a>
+      <a class="contact-link" href="https://www.linkedin.com/in/jean-marie-nisingizwe-ngabonziza-661899224/" target="_blank">↗ linkedin</a>
+      <a class="contact-link" href="https://github.com/SpyNextDoor" target="_blank">↗ github</a>
+      <a class="contact-link" href="resume.pdf" download>↓ résumé</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  built by juma · 2025 · all systems operational
+</footer>
+
+</body>
+</html>
